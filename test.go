@@ -25,6 +25,25 @@ type JsonSt struct{
 	Pwd  int	`json:"pwd"`
 	Login bool `json:"login"`
 }
+/*************************************************************/
+type FuncSt struct{
+	name string
+	Pwd int
+}
+
+// struct Public Function
+func (self *FuncSt) UpdateName(name string) bool {
+	if self.name == name {
+		return false
+	}
+	self.name = name
+	return true
+}
+
+func (self FuncSt) GetMyName() string{
+	return self.name
+}
+/*************************************************************/
 
 // func
 func chkError(err error) {
