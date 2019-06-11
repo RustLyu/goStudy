@@ -90,6 +90,11 @@ func main() {
 		fmt.Printf("index: %d, value: %s\n", i, v)
 	}
 
+	delete(testMap, 5)
+	for i,v := range testMap{
+		fmt.Printf("index: %d, value: %s\n", i, v)
+	}
+
 	// scan
 	fmt.Scan(&name,&age,&married)
 	fmt.Printf("扫描结果 name:%s age:%d married:%t\t",name,age,married)
