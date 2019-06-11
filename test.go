@@ -5,6 +5,7 @@ import (
 	//"io/ioutil"
 	"log"
 	"net/http"
+	"encoding/json"
 )
 
 
@@ -17,6 +18,12 @@ type BaseSt struct{
 type DerserveSt struct{
 	BaseSt
 	B string
+}
+
+type JsonSt struct{
+	Name string `json:"name"`
+	Pwd  int	`json:"pwd"`
+	Login bool `json:"login"`
 }
 
 // func
@@ -94,6 +101,28 @@ func main() {
 	for i,v := range testMap{
 		fmt.Printf("index: %d, value: %s\n", i, v)
 	}
+
+	// json Marshal
+	jsonTest := &JsonSt{
+		Name: "lsk",
+		Pwd: 233,
+		Login: false,
+	}
+
+	se, err:= json.Marshal(jsonTest)
+	if err != nil{
+		fmt.Println("serilize error")
+	}
+	fmt.Println(string(se))
+
+	// json Unmarshal
+	jsonObj := &JsonSt{}
+	unMErr := json.Unmarshal(se, &jsonObj)
+
+	if unMErr != nil{
+		fmt.Println("Unmarshl error")
+	}
+	fmt.Println(jsonObj)
 
 	// scan
 	fmt.Scan(&name,&age,&married)
