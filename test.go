@@ -62,6 +62,34 @@ func main() {
 	}()
 	b := <- chInt
 	fmt.Printf("channel:%d\n", b)
+
+	// array
+	var num [3]int
+	// for
+	for i,v := range num{
+		fmt.Printf("数组下表：%d,值:%d\n",i,v)
+	}
+
+	// slice
+	lsklsk := num[2:3]
+
+	for i,v := range lsklsk{
+		fmt.Printf("数组下表：%d,值:%d\n",i,v)
+	}
+	
+	// map
+	testMap := make(map[int]string)
+
+	testMap[1] = "121"
+	testMap[2] = "122"
+	testMap[3] = "123"
+	testMap[4] = "124"
+	testMap[5] = "125"
+
+	for i,v := range testMap{
+		fmt.Printf("index: %d, value: %s\n", i, v)
+	}
+
 	// scan
 	fmt.Scan(&name,&age,&married)
 	fmt.Printf("扫描结果 name:%s age:%d married:%t\t",name,age,married)
