@@ -45,7 +45,18 @@ func (self FuncSt) GetMyName() string{
 	return self.name
 }
 /*************************************************************/
+// interface
+type DateWrite interface{
+	TWrite(data interface{}) error
+}
 
+type FileSt struct{
+}
+
+func (self *FileSt) TWrite(data interface{}) error{
+	fmt.Println("writedata", data)
+	return nil
+}
 // func
 func chkError(err error) {
 	if err != nil {
@@ -59,6 +70,12 @@ func IndexHandler(w http.ResponseWriter, r *http.Request){
 }
 
 func main() {
+	tFile := &FileSt{}
+	var writer DateWrite
+	writer = tFile
+	writer.TWrite("lsk dataWrite test")
+	// panic
+	// panic("DDDDDDDDDDDDDDDDDDDDDDD")
 	// fmt
 	fmt.Printf("hello world\n")
 	fmt.Printf("1111\n")
