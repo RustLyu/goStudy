@@ -10,6 +10,7 @@ import (
 	"database/sql"
 	_ "github.com/Go-SQL-Driver/MySQL"
 	"github.com/garyburd/redigo/redis"
+	"time"
 )
 
 
@@ -80,6 +81,17 @@ var (
 )
 
 func main() {
+	// timetick
+	timetick := time.NewTimer(time.Duration(10) * time.Second)
+	go func(){
+		for{
+			select{
+			case <-timetick.C:
+				fmt.Println("time tick invoke!")
+				timetick.Reset(time.Duration(10) * time.Second)
+			}
+		}
+	}()
 	// redis
 	c,err := redis.Dial("tcp", "127.0.0.1:6379")
 	if err != nil{
