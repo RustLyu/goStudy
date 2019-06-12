@@ -6,6 +6,7 @@ import (
 	"log"
 	"net/http"
 	"encoding/json"
+	"container/list"
 )
 
 
@@ -120,6 +121,13 @@ func main() {
 	for i,v := range testMap{
 		fmt.Printf("index: %d, value: %s\n", i, v)
 	}
+	// list
+
+	tList := list.New()
+	elem := tList.PushBack("124")
+	tList.PushFront(456)
+	tList.InsertAfter("789",elem)
+	tList.InsertBefore(909,elem)
 
 	// json Marshal
 	jsonTest := &JsonSt{
