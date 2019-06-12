@@ -9,6 +9,7 @@ import (
 	"container/list"
 	"database/sql"
 	_ "github.com/Go-SQL-Driver/MySQL"
+	"github.com/garyburd/redigo/redis"
 )
 
 
@@ -79,7 +80,14 @@ var (
 )
 
 func main() {
-
+	// redis
+	c,err := redis.Dial("tcp", "127.0.0.1:6379")
+	if err != nil{
+		fmt.Println("connect redis database error")
+	}
+	fmt.Println("connect redis database success")
+	defer c.Close()
+	// mysql
 	db,err := sql.Open("mysql",user + ":" + pwd +"@tcp(" + host + ")/" + db)
 	if err != nil{
 		fmt.Println(err)
@@ -96,7 +104,7 @@ func main() {
 				}
 			}
 		}else{
-			fmt.Println(ret)
+			fmt.Println(rows)
 		}
 	}
 	// interface
