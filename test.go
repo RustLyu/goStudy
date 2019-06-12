@@ -7,6 +7,8 @@ import (
 	"net/http"
 	"encoding/json"
 	"container/list"
+	"database/sql"
+	_ "github.com/Go-SQL-Driver/MySQL"
 )
 
 
@@ -69,7 +71,35 @@ func IndexHandler(w http.ResponseWriter, r *http.Request){
 	fmt.Fprintln(w, "lsklsklsk")
 }
 
+var (
+	host = "127.0.0.1"
+	user = "root"
+	pwd = "root"
+	db = "test"
+)
+
 func main() {
+
+	db,err := sql.Open("mysql",user + ":" + pwd +"@tcp(" + host + ")/" + db)
+	if err != nil{
+		fmt.Println(err)
+		fmt.Println("open mysql error")
+		return;
+	}else{
+		rows,terr := db.Query("select * from data")
+		if terr == nil{
+			for rows.Next(){
+				var id int
+				err := rows.Scan(&id)
+				if err == nil{
+					fmt.Println(id)
+				}
+			}
+		}else{
+			fmt.Println(ret)
+		}
+	}
+	// interface
 	tFile := &FileSt{}
 	var writer DateWrite
 	writer = tFile
@@ -86,12 +116,12 @@ func main() {
 		http.HandleFunc("/", IndexHandler)
 		http.ListenAndServe("192.168.115.128:9090", nil)
 	}()
- 	var (
- 		name string
- 		age int
- 		married bool
- 
- 	)
+	var (
+		name string
+		age int
+		married bool
+
+	)
 
 	value := &DerserveSt{}
 	value.A = 1
@@ -120,7 +150,7 @@ func main() {
 	for i,v := range lsklsk{
 		fmt.Printf("数组下表：%d,值:%d\n",i,v)
 	}
-	
+
 	// map
 	testMap := make(map[int]string)
 
